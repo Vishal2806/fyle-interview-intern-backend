@@ -24,6 +24,8 @@ class AssignmentSchema(SQLAlchemyAutoSchema):
         # pylint: disable=unused-argument,no-self-use
         return Assignment(**data_dict)
 
+# Add this import for the new principal assignment API i add this 
+# from .principal import principal_assignments_resources
 
 class AssignmentSubmitSchema(Schema):
     class Meta:
@@ -31,6 +33,7 @@ class AssignmentSubmitSchema(Schema):
 
     id = fields.Integer(required=True, allow_none=False)
     teacher_id = fields.Integer(required=True, allow_none=False)
+    # state = fields.String(required=True, allow_none=False)
 
     @post_load
     def initiate_class(self, data_dict, many, partial):

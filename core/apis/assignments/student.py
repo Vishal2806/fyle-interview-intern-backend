@@ -1,8 +1,11 @@
 from flask import Blueprint
 from core import db
+from sqlalchemy import text
 from core.apis import decorators
 from core.apis.responses import APIResponse
 from core.models.assignments import Assignment
+from core.models.assignments import AssignmentStateEnum, GradeEnum
+
 
 from .schema import AssignmentSchema, AssignmentSubmitSchema
 student_assignments_resources = Blueprint('student_assignments_resources', __name__)
@@ -37,7 +40,11 @@ def upsert_assignment(p, incoming_payload):
 def submit_assignment(p, incoming_payload):
     """Submit an assignment"""
     submit_assignment_payload = AssignmentSubmitSchema().load(incoming_payload)
+    # with open('tests/SQL/count_of_assignments_in_draft.sql', encoding='utf8') as fo:
+    #         sql = fo.read()
 
+    # sql_result = db.session.execute(text(sql)).fetchall()
+    # print(f"Actual draft: {sql_result}")
     submitted_assignment = Assignment.submit(
         _id=submit_assignment_payload.id,
         teacher_id=submit_assignment_payload.teacher_id,

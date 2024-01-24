@@ -1,0 +1,2 @@
+-- SELECT COUNT (*) FROM assignments 
+-- WHERE state = "DRAFT";
